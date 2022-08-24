@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="style/style.css">
+    <script src="https://kit.fontawesome.com/07ccf7feb5.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="nav">
+    <nav class="nav container">
         <h1 class="nav__title">MOTION</h1>
         <ul class="nav__list">
             <li><button>IMAGE</button></li>
@@ -18,5 +19,24 @@
     <section>
 
     </section>
+<div class="popup__container">
+    <div class="popup__nav">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div class="popup__body">
+        <div class="popup__input">
+            <label for="title">Title</label>
+            <input id="title" type="text" value="" name="name">
+        </div>
+        <div class="popup__input">
+            <label for="url">URL</label>
+            <input id="url" type="text" value="" name="name">
+        </div>
+    </div>
+    <div class="popup__btn">
+        <button>ADD</button>
+    </div>
+</div>
+
 </body>
 </html>
