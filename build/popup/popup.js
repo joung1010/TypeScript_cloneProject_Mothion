@@ -1,38 +1,43 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 class PopupImple {
-    constructor(options) {
-        this.options = options;
+    constructor() {
         this.popupContainer = document.querySelector('.popup__container');
     }
-    makePopup() {
-        this.popupContainer.classList.remove('.popup-hide');
-        this.setOptions(this.popupContainer);
-        const item = this.makeItem();
+    makePopup(options) {
+        this.popupContainer.classList.remove('popup-hide');
+        this.setOptions(options);
+        const item = this.makeItem(options);
         const body = document.querySelector('.popup__body');
         ;
         body.innerHTML = item;
-        this.addEvent();
+        this.highLight();
     }
     closePopup() {
-        this.popupContainer.classList.add('.popup-hide');
+        this.popupContainer.classList.add('popup-hide');
+        this.removeHeighLight();
     }
-    addEvent() {
-        document.addEventListener('click', () => {
-            console.log('click');
+    highLight() {
+        const containerList = document.querySelectorAll('.container');
+        containerList.forEach((item) => {
+            item.classList.add('highlight');
         });
     }
-    setOptions(popNode) {
-        const { width, jobs, height } = this.options;
+    removeHeighLight() {
+        const containerList = document.querySelectorAll('.container');
+        containerList.forEach((item) => {
+            item.classList.remove('highlight');
+        });
+    }
+    setOptions(options) {
+        const { width, jobs, height } = options;
         if (width) {
-            popNode.style.width = `${width}px`;
+            this.popupContainer.style.width = `${width}px`;
         }
         if (height) {
-            popNode.style.width = `${height}px`;
+            this.popupContainer.style.width = `${height}px`;
         }
     }
-    makeItem() {
-        const { jobs } = this.options;
+    makeItem(options) {
+        const { jobs } = options;
         const title = this.getTitile(jobs);
         return `
         <div class="popup__input">
@@ -58,5 +63,5 @@ class PopupImple {
         }
     }
 }
-exports.default = PopupImple;
+export { PopupImple };
 //# sourceMappingURL=popup.js.map

@@ -5,36 +5,28 @@
     <title>Title</title>
     <link rel="stylesheet" href="style/style.css">
     <script src="https://kit.fontawesome.com/07ccf7feb5.js" crossorigin="anonymous"></script>
+    <script type="module" src="build/main.js"></script>
 </head>
 <body>
     <nav class="nav container">
         <h1 class="nav__title">MOTION</h1>
         <ul class="nav__list">
-            <li><button>IMAGE</button></li>
-            <li><button>VIDEO</button></li>
-            <li><button>NOTE</button></li>
-            <li><button>TASK</button></li>
+            <li><button id="imgBtn" name="img">IMAGE</button></li>
+            <li><button id="videoBtn" name="video">VIDEO</button></li>
+            <li><button id="noteBtn" name="note">NOTE</button></li>
+            <li><button id="taskBtn" name="task">TASK</button></li>
         </ul>
     </nav>
     <section class="jobs container">
 
     </section>
-<div class="popup__container">
+<div class="popup__container popup-hide">
     <div class="popup__nav">
-        <i class="fa fa-times" aria-hidden="true"></i>
+        <i class="fa fa-times popup__cancel" aria-hidden="true"></i>
     </div>
-    <div class="popup__body">
-        <div class="popup__input">
-            <label for="title">Title</label>
-            <input id="title" type="text">
-        </div>
-        <div class="popup__input">
-            <label for="url">URL</label>
-            <input id="url" type="text">
-        </div>
-    </div>
+    <div class="popup__body"></div>
     <div class="popup__btn">
-        <button>ADD</button>
+        <button class="popup__add">ADD</button>
     </div>
 </div>
 

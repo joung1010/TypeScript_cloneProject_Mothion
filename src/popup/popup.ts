@@ -7,7 +7,7 @@ type popupOptions ={
 
 interface Popup {
 
-    makePopup(): void;
+    makePopup(options :Partial<popupOptions>): void;
 
 
     closePopup(): void;
@@ -15,41 +15,50 @@ interface Popup {
 }
 
 class PopupImple implements Popup {
-    private popupContainer = document.querySelector('.popup__container') as HTMLElement;
-    constructor(private options :Partial<popupOptions>) {
+    private popupContainer = document.querySelector('.popup__container') as HTMLDivElement ;
+    constructor() {
     }
 
-    makePopup() {
-        this.popupContainer.classList.remove('.popup-hide');
-        this.setOptions(this.popupContainer);
-        const item = this.makeItem();
-        const body = document.querySelector('.popup__body')as HTMLElement;;
+    makePopup(options :Partial<popupOptions>) {
+        this.popupContainer.classList.remove('popup-hide');
+        this.setOptions(options);
+        const item = this.makeItem(options);
+        const body = document.querySelector('.popup__body')as HTMLDivElement;;
         body.innerHTML = item;
-        this.addEvent();
+        this.highLight();
     }
 
     closePopup() {
-        this.popupContainer.classList.add('.popup-hide');
+        this.popupContainer.classList.add('popup-hide');
+        this.removeHeighLight();
     }
 
-    addEvent() {
-        document.addEventListener('click',()=>{
-            console.log('click');
+    highLight() {
+        const containerList : NodeListOf<HTMLElement> = document.querySelectorAll('.container');
+        containerList.forEach((item:HTMLElement) => {
+            item.classList.add('highlight');
         });
     }
 
-    setOptions(popNode : HTMLElement):void {
-        const {width,jobs,height} = this.options
+    removeHeighLight() {
+        const containerList : NodeListOf<HTMLElement> = document.querySelectorAll('.container');
+        containerList.forEach((item:HTMLElement) => {
+            item.classList.remove('highlight');
+        });
+    }
+
+    setOptions(options :Partial<popupOptions>):void {
+        const {width,jobs,height} = options
         if (width) {
-            popNode.style.width = `${width}px`;
+            this.popupContainer.style.width = `${width}px`;
         }
         if (height) {
-            popNode.style.width = `${height}px`;
+            this.popupContainer.style.width = `${height}px`;
         }
     }
 
-    makeItem() :string{
-        const{jobs} = this.options
+    makeItem(options:Partial<popupOptions>) :string{
+        const{jobs} = options
         const title = this.getTitile(jobs);
         return `
         <div class="popup__input">
@@ -77,4 +86,4 @@ class PopupImple implements Popup {
     }
 
 }
-export default PopupImple;
+export  {PopupImple,Popup,popupOptions,popupJobs};
