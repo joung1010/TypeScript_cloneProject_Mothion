@@ -12,6 +12,8 @@ interface Popup {
 
     closePopup(): void;
 
+    addEvent(jobs:popupJobs,callback:(title:string,value:string)=>void):void;
+
 }
 
 class PopupImple implements Popup {
@@ -19,7 +21,7 @@ class PopupImple implements Popup {
     constructor() {
     }
 
-    makePopup(options :Partial<popupOptions>) {
+    makePopup(options :Partial<popupOptions>,) {
         this.popupContainer.classList.remove('popup-hide');
         this.setOptions(options);
         const item = this.makeItem(options);
@@ -83,6 +85,15 @@ class PopupImple implements Popup {
             default:
                 throw new Error(`can not find job task ${job}`);
         }
+    }
+
+    addEvent(jobs:popupJobs,callback:(title:string,value:string)=>void) {
+        const addBtn = document.querySelector('.popup__add');
+        const title = document.querySelector('#title') as HTMLInputElement;
+        const targetItem = document.querySelector(`#${jobs}`)as HTMLInputElement;
+        addBtn?.addEventListener('click',()=>{
+            callback(title.value,targetItem.value);
+        });
     }
 
 }

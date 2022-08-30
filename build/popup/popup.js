@@ -62,6 +62,14 @@ class PopupImple {
                 throw new Error(`can not find job task ${job}`);
         }
     }
+    addEvent(jobs, callback) {
+        const addBtn = document.querySelector('.popup__add');
+        const title = document.querySelector('#title');
+        const targetItem = document.querySelector(`#${jobs}`);
+        addBtn === null || addBtn === void 0 ? void 0 : addBtn.addEventListener('click', () => {
+            callback(title.value, targetItem.value);
+        });
+    }
 }
 export { PopupImple };
 //# sourceMappingURL=popup.js.map

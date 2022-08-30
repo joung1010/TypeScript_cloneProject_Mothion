@@ -6,6 +6,7 @@ const imgBtn = document.querySelector('#imgBtn');
 const videoBtn = document.querySelector('#videoBtn');
 const noteBtn = document.querySelector('#noteBtn');
 const taskBtn = document.querySelector('#taskBtn');
+const popAddBtn = document.querySelector('.popup__add');
 popupCancelBtn === null || popupCancelBtn === void 0 ? void 0 : popupCancelBtn.addEventListener("click", () => {
     popup.closePopup();
 });
@@ -14,6 +15,8 @@ imgBtn === null || imgBtn === void 0 ? void 0 : imgBtn.addEventListener('click',
     const job = target.name;
     popup.makePopup({
         jobs: job,
+    });
+    popup.addEvent(job, (title, value) => {
     });
 });
 noteBtn === null || noteBtn === void 0 ? void 0 : noteBtn.addEventListener('click', (evvent) => {

@@ -8,6 +8,7 @@ const imgBtn = document.querySelector('#imgBtn');
 const videoBtn = document.querySelector('#videoBtn');
 const noteBtn = document.querySelector('#noteBtn');
 const taskBtn = document.querySelector('#taskBtn');
+const popAddBtn = document.querySelector('.popup__add');
 
 popupCancelBtn?.addEventListener("click",()=>{
     popup.closePopup();
@@ -19,6 +20,9 @@ imgBtn?.addEventListener('click', (evvent:Event) => {
     popup.makePopup({
         jobs:job,
     });
+    popup.addEvent(job,(title,value)=>{
+        
+    })
 });
 
 noteBtn?.addEventListener('click', (evvent:Event) => {
