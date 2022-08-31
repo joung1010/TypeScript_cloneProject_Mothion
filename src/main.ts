@@ -1,6 +1,7 @@
 import {PopupImple,popupJobs} from './popup/popup.js';
 import addItem from './item/item.js';
 //https://picsum.photos/300/200
+// https://www.youtube.com/embed/3YOPj_pbQPY
 const popup = new PopupImple();
 const popupCloseBtn = document.querySelector('.popup__cancel');
 const popupAddBtn = document.querySelector('.popup__add');
@@ -40,6 +41,7 @@ noteBtn?.addEventListener('click', (evvent:Event) => {
 videoBtn?.addEventListener('click', (evvent:Event) => {
     const target = evvent.target as HTMLButtonElement;
     const job = target.name as popupJobs;
+    popupAddBtn?.setAttribute("data-target", job);
     popup.makePopup({
         jobs:job,
     });

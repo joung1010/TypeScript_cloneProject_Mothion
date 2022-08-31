@@ -26,15 +26,12 @@ function findTarget(job: string,item:string):string {
         case 'img':
             return `<img src="${item}"></img>`;
         case 'video':
-            return `<ifame 
-                 type="text/html"
-                title="youtube player"
-                width="100%"
-                height="500"
-                src="${item}"
-                frameBorder="0"
-                allowFullScreen
-                />`;
+            return `
+          <iframe width="100%" height="100%" src="${item}"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+            `;
         default :
             throw  new Error(`no jobs ${job}`);
     }

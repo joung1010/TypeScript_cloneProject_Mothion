@@ -34,6 +34,7 @@ noteBtn === null || noteBtn === void 0 ? void 0 : noteBtn.addEventListener('clic
 videoBtn === null || videoBtn === void 0 ? void 0 : videoBtn.addEventListener('click', (evvent) => {
     const target = evvent.target;
     const job = target.name;
+    popupAddBtn === null || popupAddBtn === void 0 ? void 0 : popupAddBtn.setAttribute("data-target", job);
     popup.makePopup({
         jobs: job,
     });
