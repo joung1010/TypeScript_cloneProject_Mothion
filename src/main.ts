@@ -15,13 +15,19 @@ popupCloseBtn?.addEventListener("click",()=>{
     popup.closePopup();
 });
 
+popupAddBtn?.addEventListener("click",(evvent:Event)=>{
+    const target = evvent.target as HTMLButtonElement;
+    const job = target.dataset.target as popupJobs;
+    popup.addItem(job, addItem);
+})
+
 imgBtn?.addEventListener('click', (evvent:Event) => {
     const target = evvent.target as HTMLButtonElement;
     const job = target.name as popupJobs;
+    popupAddBtn?.setAttribute("data-target", job);
     popup.makePopup({
         jobs:job,
     });
-    popup.addEvent(job, addItem);
 });
 
 noteBtn?.addEventListener('click', (evvent:Event) => {

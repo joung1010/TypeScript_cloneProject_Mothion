@@ -12,7 +12,7 @@ interface Popup {
 
     closePopup(): void;
 
-    addEvent(jobs:popupJobs,callback:(title:string,value:string)=>void):void;
+    addItem(jobs:popupJobs, callback:(title:string, value:string)=>void):void;
 
 }
 
@@ -87,14 +87,12 @@ class PopupImple implements Popup {
         }
     }
 
-    addEvent(jobs:popupJobs,callback:(title:string,value:string,job:string)=>void) {
+    addItem(jobs:popupJobs,callback:(title:string,value:string,job:string)=>void) {
         const addBtn = document.querySelector('.popup__add');
         const title = document.querySelector(`#${jobs}__title`) as HTMLInputElement;
         const targetItem = document.querySelector(`#${jobs}`)as HTMLInputElement;
-        addBtn?.addEventListener('click',()=>{
-            callback(title.value, targetItem.value, jobs);
-            this.closePopup();
-        });
+        callback(title.value, targetItem.value, jobs);
+        this.closePopup();
     }
 
 }

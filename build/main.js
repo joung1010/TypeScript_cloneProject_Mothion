@@ -11,13 +11,18 @@ const popAddBtn = document.querySelector('.popup__add');
 popupCloseBtn === null || popupCloseBtn === void 0 ? void 0 : popupCloseBtn.addEventListener("click", () => {
     popup.closePopup();
 });
+popupAddBtn === null || popupAddBtn === void 0 ? void 0 : popupAddBtn.addEventListener("click", (evvent) => {
+    const target = evvent.target;
+    const job = target.dataset.target;
+    popup.addItem(job, addItem);
+});
 imgBtn === null || imgBtn === void 0 ? void 0 : imgBtn.addEventListener('click', (evvent) => {
     const target = evvent.target;
     const job = target.name;
+    popupAddBtn === null || popupAddBtn === void 0 ? void 0 : popupAddBtn.setAttribute("data-target", job);
     popup.makePopup({
         jobs: job,
     });
-    popup.addEvent(job, addItem);
 });
 noteBtn === null || noteBtn === void 0 ? void 0 : noteBtn.addEventListener('click', (evvent) => {
     const target = evvent.target;
