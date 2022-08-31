@@ -1,13 +1,14 @@
 import { PopupImple } from './popup/popup.js';
+import addItem from './item/item.js';
 const popup = new PopupImple();
-const popupCancelBtn = document.querySelector('.popup__cancel');
+const popupCloseBtn = document.querySelector('.popup__cancel');
 const popupAddBtn = document.querySelector('.popup__add');
 const imgBtn = document.querySelector('#imgBtn');
 const videoBtn = document.querySelector('#videoBtn');
 const noteBtn = document.querySelector('#noteBtn');
 const taskBtn = document.querySelector('#taskBtn');
 const popAddBtn = document.querySelector('.popup__add');
-popupCancelBtn === null || popupCancelBtn === void 0 ? void 0 : popupCancelBtn.addEventListener("click", () => {
+popupCloseBtn === null || popupCloseBtn === void 0 ? void 0 : popupCloseBtn.addEventListener("click", () => {
     popup.closePopup();
 });
 imgBtn === null || imgBtn === void 0 ? void 0 : imgBtn.addEventListener('click', (evvent) => {
@@ -16,8 +17,7 @@ imgBtn === null || imgBtn === void 0 ? void 0 : imgBtn.addEventListener('click',
     popup.makePopup({
         jobs: job,
     });
-    popup.addEvent(job, (title, value) => {
-    });
+    popup.addEvent(job, addItem);
 });
 noteBtn === null || noteBtn === void 0 ? void 0 : noteBtn.addEventListener('click', (evvent) => {
     const target = evvent.target;

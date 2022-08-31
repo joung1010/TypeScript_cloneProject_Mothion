@@ -22,12 +22,12 @@ class PopupImple implements Popup {
     }
 
     makePopup(options :Partial<popupOptions>,) {
-        this.popupContainer.classList.remove('popup-hide');
         this.setOptions(options);
         const item = this.makeItem(options);
         const body = document.querySelector('.popup__body')as HTMLDivElement;;
         body.innerHTML = item;
         this.highLight();
+        this.popupContainer.classList.remove('popup-hide');
     }
 
     closePopup() {
@@ -64,8 +64,8 @@ class PopupImple implements Popup {
         const title = this.getTitile(jobs);
         return `
         <div class="popup__input">
-            <label for="title">Title</label>
-            <input id="title" type="text">
+            <label for="${jobs}__title">Title</label>
+            <input id="${jobs}__title" type="text">
         </div>
         <div class="popup__input">
             <label for="${jobs}">${title}</label>
@@ -87,12 +87,13 @@ class PopupImple implements Popup {
         }
     }
 
-    addEvent(jobs:popupJobs,callback:(title:string,value:string)=>void) {
+    addEvent(jobs:popupJobs,callback:(title:string,value:string,job:string)=>void) {
         const addBtn = document.querySelector('.popup__add');
-        const title = document.querySelector('#title') as HTMLInputElement;
+        const title = document.querySelector(`#${jobs}__title`) as HTMLInputElement;
         const targetItem = document.querySelector(`#${jobs}`)as HTMLInputElement;
         addBtn?.addEventListener('click',()=>{
-            callback(title.value,targetItem.value);
+            callback(title.value, targetItem.value, jobs);
+            this.closePopup();
         });
     }
 

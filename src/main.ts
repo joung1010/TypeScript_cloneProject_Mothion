@@ -1,8 +1,9 @@
 import {PopupImple,popupJobs} from './popup/popup.js';
-
+import addItem from './item/item.js';
+//https://picsum.photos/300/200
 const popup = new PopupImple();
-const popupCancelBtn = document.querySelector('.popup__cancel') ;
-const popupAddBtn = document.querySelector('.popup__add') ;
+const popupCloseBtn = document.querySelector('.popup__cancel');
+const popupAddBtn = document.querySelector('.popup__add');
 
 const imgBtn = document.querySelector('#imgBtn');
 const videoBtn = document.querySelector('#videoBtn');
@@ -10,7 +11,7 @@ const noteBtn = document.querySelector('#noteBtn');
 const taskBtn = document.querySelector('#taskBtn');
 const popAddBtn = document.querySelector('.popup__add');
 
-popupCancelBtn?.addEventListener("click",()=>{
+popupCloseBtn?.addEventListener("click",()=>{
     popup.closePopup();
 });
 
@@ -20,9 +21,7 @@ imgBtn?.addEventListener('click', (evvent:Event) => {
     popup.makePopup({
         jobs:job,
     });
-    popup.addEvent(job,(title,value)=>{
-        
-    })
+    popup.addEvent(job, addItem);
 });
 
 noteBtn?.addEventListener('click', (evvent:Event) => {
