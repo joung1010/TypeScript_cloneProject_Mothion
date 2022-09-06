@@ -6,6 +6,7 @@ function addItem(title:string, item:string,job:string):void {
     div.classList.add('jobs__item');
     div.innerHTML = jobs;
     jobsContainer.appendChild(div);
+    addCancelBtn();
 }
 
 function makeItem(title:string, item:string,job:string):string {
@@ -58,9 +59,30 @@ function getTargetItem(job: string,item:string):string {
             `;
         case'note':
             return `<div class="note__contents">${item}</div>`;
+        case 'task':
+            return  `<ul class="task__contents"><li class="task__job">${item}</li></ul>`;
         default :
             throw  new Error(`no jobs ${job}`);
     }
+}
+
+function addCancelBtn() {
+    const itemBtn = document.querySelector('.item__btn');
+    itemBtn?.addEventListener('click',(event:Event)=>{
+        console.log(event);
+        const target = event.target as HTMLButtonElement;
+          const parentNode = target.parentNode;
+        let targetNode;
+        debugger;
+        if (parentNode?.nodeName === 'BUTTON') {
+            targetNode = parentNode?.parentNode as Node;
+        } else {
+            targetNode = parentNode?.parentNode?.parentNode as Node;
+        }
+        jobsContainer?.removeChild(targetNode);
+        // let targetNode = target.parentElement;
+        // console.log('targetNode',targetNode);
+    });
 }
 
 export default addItem;

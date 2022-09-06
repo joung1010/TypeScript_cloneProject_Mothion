@@ -5,6 +5,7 @@ function addItem(title, item, job) {
     div.classList.add('jobs__item');
     div.innerHTML = jobs;
     jobsContainer.appendChild(div);
+    addCancelBtn();
 }
 function makeItem(title, item, job) {
     const _item = getTargetItem(job, item);
@@ -54,9 +55,29 @@ function getTargetItem(job, item) {
             `;
         case 'note':
             return `<div class="note__contents">${item}</div>`;
+        case 'task':
+            return `<ul class="task__contents"><li class="task__job">${item}</li></ul>`;
         default:
             throw new Error(`no jobs ${job}`);
     }
+}
+function addCancelBtn() {
+    const itemBtn = document.querySelector('.item__btn');
+    itemBtn === null || itemBtn === void 0 ? void 0 : itemBtn.addEventListener('click', (event) => {
+        var _a;
+        console.log(event);
+        const target = event.target;
+        const parentNode = target.parentNode;
+        let targetNode;
+        debugger;
+        if ((parentNode === null || parentNode === void 0 ? void 0 : parentNode.nodeName) === 'BUTTON') {
+            targetNode = parentNode === null || parentNode === void 0 ? void 0 : parentNode.parentNode;
+        }
+        else {
+            targetNode = (_a = parentNode === null || parentNode === void 0 ? void 0 : parentNode.parentNode) === null || _a === void 0 ? void 0 : _a.parentNode;
+        }
+        jobsContainer === null || jobsContainer === void 0 ? void 0 : jobsContainer.removeChild(targetNode);
+    });
 }
 export default addItem;
 //# sourceMappingURL=item.js.map

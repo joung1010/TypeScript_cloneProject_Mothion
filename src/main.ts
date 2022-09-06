@@ -50,7 +50,9 @@ videoBtn?.addEventListener('click', (evvent:Event) => {
 taskBtn?.addEventListener('click', (evvent:Event) => {
     const target = evvent.target as HTMLButtonElement;
     const job = target.name as popupJobs;
+    popupAddBtn?.setAttribute("data-target", job);
     popup.makePopup({
         jobs:job,
     });
 });
+

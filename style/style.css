@@ -143,6 +143,14 @@ button {
 .note__contents {
     padding: 0.5rem;
 }
+.task__contents {
+    list-style: none;
+}
+.task__contents li:before {
+    content: '■';
+    display: inline-block;
+    margin-right: 0.2em;
+}
 .item__body {
     flex: 1 1 50%;
     width: 100%;
