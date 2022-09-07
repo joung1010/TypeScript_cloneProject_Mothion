@@ -124,6 +124,7 @@ button {
     display: flex;
     margin: 1.5rem 0;
     position: relative;
+    cursor: grab;
 }
 .item__img {
     width: 100%;
@@ -178,4 +179,7 @@ button {
 .footer__copyright {
     text-align: center;
     line-height: 5rem;
+}
+.dragging {
+    opacity: .5;
 }

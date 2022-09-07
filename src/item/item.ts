@@ -1,12 +1,14 @@
-const jobsContainer = document.querySelector('.jobs') as HTMLSelectElement;
+const jobsContainer = document.querySelector('.jobs') as HTMLElement;
 
 function addItem(title:string, item:string,job:string):void {
     const jobs = makeItem(title, item, job);
     const div = document.createElement('div');
     div.classList.add('jobs__item');
+    div.setAttribute("draggable","true");
     div.innerHTML = jobs;
     jobsContainer.appendChild(div);
     addCancelBtn();
+    addDragable();
 }
 
 function makeItem(title:string, item:string,job:string):string {
@@ -30,7 +32,7 @@ function getJobs(job:string,title:string,itemNode:string):string {
         case 'task':
             jobs =  `
         <div class="item__note">
-                <div class="item__title">test</div>
+                <div class="item__title">${title}</div>
                 ${itemNode}
          </div>
             `;
@@ -69,7 +71,6 @@ function getTargetItem(job: string,item:string):string {
 function addCancelBtn() {
     const itemBtn = document.querySelector('.item__btn');
     itemBtn?.addEventListener('click',(event:Event)=>{
-        console.log(event);
         const target = event.target as HTMLButtonElement;
           const parentNode = target.parentNode;
         let targetNode;
@@ -81,5 +82,39 @@ function addCancelBtn() {
         jobsContainer?.removeChild(targetNode);
     });
 }
+
+function addDragable() {
+    const jobItem = document.querySelectorAll('.jobs__item');
+    let currentItemIndex:number ;
+    let currentItem:HTMLElement ;
+    let parentElement:HTMLElement ;
+    jobsContainer.addEventListener('dragstart', (event) => {
+         currentItem = event.target as HTMLDivElement;
+        currentItem?.classList.add('dragging');
+         parentElement = currentItem.parentElement as HTMLElement;
+        const listArr = [...parentElement.children];
+        currentItemIndex = listArr.indexOf(currentItem);
+    });
+
+    jobsContainer.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+    jobsContainer.addEventListener('drop', (e) => {
+        e.preventDefault();
+        currentItem?.classList.remove('dragging');
+        const currentDropItem = e.target as HTMLElement;
+        const listArr = [...parentElement.children];
+        const dropItemIndex = listArr.indexOf(currentDropItem);
+
+        if (currentItemIndex < dropItemIndex) {
+            currentDropItem.after(currentItem);
+        } else {
+            currentDropItem.before(currentItem);
+        }
+    });
+
+}
+
+
 
 export default addItem;
