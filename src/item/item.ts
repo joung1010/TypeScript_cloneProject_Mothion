@@ -73,15 +73,12 @@ function addCancelBtn() {
         const target = event.target as HTMLButtonElement;
           const parentNode = target.parentNode;
         let targetNode;
-        debugger;
         if (parentNode?.nodeName === 'BUTTON') {
             targetNode = parentNode?.parentNode as Node;
         } else {
             targetNode = parentNode?.parentNode?.parentNode as Node;
         }
         jobsContainer?.removeChild(targetNode);
-        // let targetNode = target.parentElement;
-        // console.log('targetNode',targetNode);
     });
 }
 

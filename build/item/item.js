@@ -69,7 +69,6 @@ function addCancelBtn() {
         const target = event.target;
         const parentNode = target.parentNode;
         let targetNode;
-        debugger;
         if ((parentNode === null || parentNode === void 0 ? void 0 : parentNode.nodeName) === 'BUTTON') {
             targetNode = parentNode === null || parentNode === void 0 ? void 0 : parentNode.parentNode;
         }
