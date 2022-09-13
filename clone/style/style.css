@@ -61,7 +61,7 @@ body {
     color: var(--accent-color);
 }
 
-.control-panel {
+.control__panel {
     display: flex;
     align-items: center;
     justify-content: center;

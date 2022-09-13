@@ -1,5 +1,9 @@
 :root {
     --color-red: #F02723;
+    --color-black:#000000FF;
+    --color-white:#FFFFFFFF;
+    --color-darkGrey: #68686850;
+    --color-kaki: #2d2d2d;
 }
 
 *{
@@ -7,9 +11,12 @@
 }
 body {
     margin: 0;
-    padding: 0;
-    border: 0;
+    font-family: Roboto, Oxygen, sans-serif;
+    font-size: 1.25rem;
     height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
     background: center/cover no-repeat url("../images/background-210125-235634.png");
 }
 button {
@@ -18,13 +25,17 @@ button {
     border: none;
     outline: none;
 }
-.container {
-    margin: auto;
+.app {
+    width: 100%;
+    max-width: 1000px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
 .nav {
-    background: black;
+    background: var(--color-black);
     color: white;
-    max-width: 90rem;
 }
 .nav__title {
     color: var(--color-red);
@@ -107,12 +118,23 @@ button {
     display: none;
 }
 .jobs {
-    max-width: 90rem;
-    background-color: darkgray;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    min-height: 50rem;
+    height: 100%;
+    overflow-y: auto;
+    background-color: var(--color-darkGrey);
+    /* Firefox */
+    scrollbar-width: 6px;
+    scrollbar-color: var(--color-kaki);
+    scrollbar-face-color: var(--color-red);
+}
+.jobs::-webkit-scrollbar {
+    /* Safari and Chrome */
+    background-color: var(--color-kaki);
+    width: 6px;
+}
+
+.jobs::-webkit-scrollbar-thumb {
+    /* Safari and Chrome */
+    background-color: var(--color-redcolor);
 }
 .jobs__item {
     background: #bdc3c7;  /* fallback for old browsers */
@@ -171,10 +193,9 @@ button {
 }
 
 .footer {
-    background: black;
-    color: white;
-    max-width: 90rem;
-    height: 5rem;
+    background: var(--color-black);
+    border-top: 1px solid var(--color-black);
+    color: var(--color-white);
 }
 .footer__copyright {
     text-align: center;
