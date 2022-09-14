@@ -1,12 +1,10 @@
 import { BaseComponent } from '../../component.js';
 export class ImageComponent extends BaseComponent {
     constructor(title, url) {
-        const template = document.createElement('template');
-        template.innerHTML = `<section class="image">
-    <div class="image__holder"><img src="" alt="" class="image__thumbnail"></div>
-    <p class="image__title"></p>
-    </section>`;
-        super(template.content.firstElementChild);
+        super(`<section class="image">
+                <div class="image__holder"><img src="" alt="" class="image__thumbnail"></div>
+                <p class="image__title"></p>
+              </section>`);
         const imageElement = this.element.querySelector('.image__thumbnail');
         imageElement.src = url;
         imageElement.alt = title;

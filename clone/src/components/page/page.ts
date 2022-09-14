@@ -1,10 +1,8 @@
 import {BaseComponent} from '../component.js'
 
-class PageComponent extends BaseComponent{
+class PageComponent extends BaseComponent<HTMLUListElement>{
     constructor() {
-         super(document.createElement('ul'));
-        this.element.setAttribute('class', 'page');
-        this.element.textContent = 'This is PageComponent';
+         super(`<ul class="page">This is Page Component!</ul>`);
     }
 }
 export {PageComponent}
