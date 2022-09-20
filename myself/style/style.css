@@ -4,6 +4,7 @@
     --color-white:#FFFFFFFF;
     --color-darkGrey: #68686850;
     --color-kaki: #2d2d2d;
+    --accent-color: #f64435;
 }
 
 *{
@@ -134,7 +135,7 @@ button {
 
 .jobs::-webkit-scrollbar-thumb {
     /* Safari and Chrome */
-    background-color: var(--color-redcolor);
+    background-color: var(--color-red);
 }
 .jobs__item {
     background: #bdc3c7;  /* fallback for old browsers */

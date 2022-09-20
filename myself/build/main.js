@@ -1,51 +1,21 @@
-import { PopupImple } from './popup/popup.js';
-import addItem from './item/item.js';
-const popup = new PopupImple();
-const popupCloseBtn = document.querySelector('.popup__cancel');
-const popupAddBtn = document.querySelector('.popup__add');
-const imgBtn = document.querySelector('#imgBtn');
-const videoBtn = document.querySelector('#videoBtn');
-const noteBtn = document.querySelector('#noteBtn');
-const taskBtn = document.querySelector('#taskBtn');
-const popAddBtn = document.querySelector('.popup__add');
-popupCloseBtn === null || popupCloseBtn === void 0 ? void 0 : popupCloseBtn.addEventListener("click", () => {
-    popup.closePopup();
-});
-popupAddBtn === null || popupAddBtn === void 0 ? void 0 : popupAddBtn.addEventListener("click", (evvent) => {
-    const target = evvent.target;
-    const job = target.dataset.target;
-    popup.addItem(job, addItem);
-});
-imgBtn === null || imgBtn === void 0 ? void 0 : imgBtn.addEventListener('click', (evvent) => {
-    const target = evvent.target;
-    const job = target.name;
-    popupAddBtn === null || popupAddBtn === void 0 ? void 0 : popupAddBtn.setAttribute("data-target", job);
-    popup.makePopup({
-        jobs: job,
-    });
-});
-noteBtn === null || noteBtn === void 0 ? void 0 : noteBtn.addEventListener('click', (evvent) => {
-    const target = evvent.target;
-    const job = target.name;
-    popupAddBtn === null || popupAddBtn === void 0 ? void 0 : popupAddBtn.setAttribute("data-target", job);
-    popup.makePopup({
-        jobs: job,
-    });
-});
-videoBtn === null || videoBtn === void 0 ? void 0 : videoBtn.addEventListener('click', (evvent) => {
-    const target = evvent.target;
-    const job = target.name;
-    popupAddBtn === null || popupAddBtn === void 0 ? void 0 : popupAddBtn.setAttribute("data-target", job);
-    popup.makePopup({
-        jobs: job,
-    });
-});
-taskBtn === null || taskBtn === void 0 ? void 0 : taskBtn.addEventListener('click', (evvent) => {
-    const target = evvent.target;
-    const job = target.name;
-    popupAddBtn === null || popupAddBtn === void 0 ? void 0 : popupAddBtn.setAttribute("data-target", job);
-    popup.makePopup({
-        jobs: job,
-    });
-});
+import { PageComponent } from './components/page/page.js';
+import { ImageComponent } from './components/item/image.js';
+import { VideoComponent } from './components/item/video.js';
+import { NoteComponent } from './components/item/note.js';
+import { TaskComponent } from './components/item/task.js';
+class App {
+    constructor(appRoot) {
+        this.page = new PageComponent();
+        this.page.attaachTo(appRoot);
+        const img = new ImageComponent('imgComponent', 'https://picsum.photos/600/200');
+        img.attaachTo(appRoot, 'beforeend');
+        const video = new VideoComponent('Video', 'https://www.youtube.com/watch?v=qtlWnuv3TF4&ab_channel=%ED%83%AC%ED%83%AC%EB%B2%84%EB%A6%B0');
+        video.attaachTo(appRoot, 'beforeend');
+        const note = new NoteComponent('note', 'noteBody');
+        note.attaachTo(appRoot, 'beforeend');
+        const task = new TaskComponent('task', 'taskBody');
+        task.attaachTo(appRoot, 'beforeend');
+    }
+}
+new App(document.querySelector('.jobs'));
 //# sourceMappingURL=main.js.map

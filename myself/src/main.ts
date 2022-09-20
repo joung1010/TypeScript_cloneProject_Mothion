@@ -1,58 +1,26 @@
-import {PopupImple,popupJobs} from './popup/popup.js';
-import addItem from './item/item.js';
-//https://picsum.photos/300/200
-// https://www.youtube.com/embed/3YOPj_pbQPY
-const popup = new PopupImple();
-const popupCloseBtn = document.querySelector('.popup__cancel');
-const popupAddBtn = document.querySelector('.popup__add');
+import {PageComponent} from './components/page/page.js'
+import {ImageComponent} from './components/item/image.js'
+import {VideoComponent} from './components/item/video.js'
+import {NoteComponent} from './components/item/note.js'
+import {TaskComponent} from './components/item/task.js'
 
-const imgBtn = document.querySelector('#imgBtn');
-const videoBtn = document.querySelector('#videoBtn');
-const noteBtn = document.querySelector('#noteBtn');
-const taskBtn = document.querySelector('#taskBtn');
-const popAddBtn = document.querySelector('.popup__add');
+class App {
+    private readonly page:PageComponent
+    constructor(appRoot:HTMLElement) {
+        this.page = new PageComponent();
+        this.page.attaachTo(appRoot);
 
-popupCloseBtn?.addEventListener("click",()=>{
-    popup.closePopup();
-});
+        const img = new ImageComponent('imgComponent','https://picsum.photos/600/200');
+        img.attaachTo(appRoot, 'beforeend');
 
-popupAddBtn?.addEventListener("click",(evvent:Event)=>{
-    const target = evvent.target as HTMLButtonElement;
-    const job = target.dataset.target as popupJobs;
-    popup.addItem(job, addItem);
-})
+        const video = new VideoComponent('Video','https://www.youtube.com/watch?v=qtlWnuv3TF4&ab_channel=%ED%83%AC%ED%83%AC%EB%B2%84%EB%A6%B0');
+        video.attaachTo(appRoot, 'beforeend');
 
-imgBtn?.addEventListener('click', (evvent:Event) => {
-    const target = evvent.target as HTMLButtonElement;
-    const job = target.name as popupJobs;
-    popupAddBtn?.setAttribute("data-target", job);
-    popup.makePopup({
-        jobs:job,
-    });
-});
+        const note = new NoteComponent('note','noteBody');
+        note.attaachTo(appRoot, 'beforeend');
 
-noteBtn?.addEventListener('click', (evvent:Event) => {
-    const target = evvent.target as HTMLButtonElement;
-    const job = target.name as popupJobs;
-    popupAddBtn?.setAttribute("data-target", job);
-    popup.makePopup({
-        jobs:job,
-    });
-});
-videoBtn?.addEventListener('click', (evvent:Event) => {
-    const target = evvent.target as HTMLButtonElement;
-    const job = target.name as popupJobs;
-    popupAddBtn?.setAttribute("data-target", job);
-    popup.makePopup({
-        jobs:job,
-    });
-});
-taskBtn?.addEventListener('click', (evvent:Event) => {
-    const target = evvent.target as HTMLButtonElement;
-    const job = target.name as popupJobs;
-    popupAddBtn?.setAttribute("data-target", job);
-    popup.makePopup({
-        jobs:job,
-    });
-});
-
+        const task = new TaskComponent('task','taskBody');
+        task.attaachTo(appRoot, 'beforeend');
+    }
+}
+new App(document.querySelector('.jobs')! as HTMLElement);
