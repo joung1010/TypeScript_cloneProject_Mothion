@@ -9,7 +9,7 @@ class PageItemComponent extends BaseComponent<HTMLElement> implements Composasbl
         super(`<li class="page_iem">
                <section class="page_item__body">
                    <button class="page_item__controls">
-                       <span><i class="fa fa-times " aria-hidden="true"></i></span>
+                       <span>&times</span>
                    </button>
                </section>
             </li>`);
