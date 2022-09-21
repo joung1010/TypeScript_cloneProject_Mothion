@@ -9,9 +9,9 @@ export class TaskComponent extends BaseComponent<HTMLElement>{
                                   </p>
                                 </section>
                                 `);
-        const taskTitle = this.element.querySelector('.note__title')! as HTMLIFrameElement;
+        const taskTitle = this.element.querySelector('.task__title')! as HTMLIFrameElement;
         taskTitle.textContent = note
-        const taskBody = this.element.querySelector('.note__body')! as HTMLHeadElement;
+        const taskBody = this.element.querySelector('.task__body')! as HTMLHeadElement;
         taskBody.textContent = title;
     }
 }

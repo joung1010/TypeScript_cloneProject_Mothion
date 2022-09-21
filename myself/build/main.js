@@ -8,13 +8,13 @@ class App {
         this.page = new PageComponent();
         this.page.attaachTo(appRoot);
         const img = new ImageComponent('imgComponent', 'https://picsum.photos/600/200');
-        img.attaachTo(appRoot, 'beforeend');
         const video = new VideoComponent('Video', 'https://www.youtube.com/watch?v=qtlWnuv3TF4&ab_channel=%ED%83%AC%ED%83%AC%EB%B2%84%EB%A6%B0');
-        video.attaachTo(appRoot, 'beforeend');
         const note = new NoteComponent('note', 'noteBody');
-        note.attaachTo(appRoot, 'beforeend');
         const task = new TaskComponent('task', 'taskBody');
-        task.attaachTo(appRoot, 'beforeend');
+        this.page.addChild(img);
+        this.page.addChild(video);
+        this.page.addChild(note);
+        this.page.addChild(task);
     }
 }
 new App(document.querySelector('.jobs'));

@@ -1,5 +1,5 @@
 export interface Component {
-    attaachTo(mainElement:HTMLElement,position:InsertPosition):void;
+    attaachTo(mainElement:HTMLElement,position?:InsertPosition):void;
 }
 
 export class BaseComponent<T extends HTMLElement> implements Component{

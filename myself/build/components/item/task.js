@@ -8,9 +8,9 @@ export class TaskComponent extends BaseComponent {
                                   </p>
                                 </section>
                                 `);
-        const taskTitle = this.element.querySelector('.note__title');
+        const taskTitle = this.element.querySelector('.task__title');
         taskTitle.textContent = note;
-        const taskBody = this.element.querySelector('.note__body');
+        const taskBody = this.element.querySelector('.task__body');
         taskBody.textContent = title;
     }
 }
