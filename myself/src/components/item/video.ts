@@ -1,24 +1,20 @@
-export class VideoComponent {
-    private element: HTMLElement;
-    constructor(title:string, url:string) {
+import {BaseComponent,Component} from'../component.js'
 
-        const template = document.createElement('template');
-        template.innerHTML = ` <section class="video">
+export class VideoComponent extends BaseComponent<HTMLElement>{
+    constructor(title:string, url:string) {
+        super(` <section class="video">
                                  <div class="video__item">
                                       <iframe class="video__iframe"  src=""></iframe>
                                   </div>
                                 <h1 class="video__title"></h1>
                                 </section>
-                                `;
-        this.element = template.content.firstElementChild! as HTMLSelectElement;
+                                `);
+
         const iframe = this.element.querySelector('.video__iframe')! as HTMLIFrameElement;
         iframe.src = getEmbededURL(url);
         iframe.title = title;
         const videoTitle = this.element.querySelector('.video__title')! as HTMLHeadElement;
         videoTitle.textContent = title;
-    }
-    attaachTo(mainElement:HTMLElement,position:InsertPosition= 'afterbegin') {
-        mainElement.insertAdjacentElement(position , this.element);
     }
 }
 

@@ -1,11 +1,7 @@
-export class PageComponent {
+import { BaseComponent } from '../component.js';
+export class PageComponent extends BaseComponent {
     constructor() {
-        const template = document.createElement('template');
-        template.innerHTML = `<ul>This is Page</ul>`;
-        this.element = template.content.firstElementChild;
-    }
-    attaachTo(mainElement, position = 'afterbegin') {
-        mainElement.insertAdjacentElement(position, this.element);
+        super(`<ul>This is Page</ul>`);
     }
 }
 //# sourceMappingURL=page.js.map
