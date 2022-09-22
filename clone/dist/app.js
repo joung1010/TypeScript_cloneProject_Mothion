@@ -1,11 +1,11 @@
-import { PageComponent } from './components/page/page.js';
+import { PageComponent, PageItemComponent } from './components/page/page.js';
 import { ImageComponent } from './components/page/items/image.js';
 import { VideoComponent } from './components/page/items/video.js';
 import { NoteComponent } from './components/page/items/note.js';
 import { TodoComponent } from './components/page/items/todo.js';
 class App {
     constructor(appRoot) {
-        this.page = new PageComponent();
+        this.page = new PageComponent(PageItemComponent);
         this.page.attaachTo(appRoot);
         const image = new ImageComponent('Image Title', 'https://picsum.photos/600/200');
         const video = new VideoComponent('Video Title', 'https://youtu.be/qtlWnuv3TF4');
