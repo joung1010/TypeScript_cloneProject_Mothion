@@ -1,5 +1,7 @@
 export interface Component {
     attaachTo(mainElement:HTMLElement,position?:InsertPosition):void;
+
+    removeFrom(parentElement: HTMLElement):void;
 }
 
 export class BaseComponent<T extends HTMLElement> implements Component{
@@ -11,5 +13,12 @@ export class BaseComponent<T extends HTMLElement> implements Component{
     }
     attaachTo(mainElement:HTMLElement,position:InsertPosition= 'afterbegin') {
         mainElement.insertAdjacentElement(position , this.element);
+    }
+
+    removeFrom(parentElement: HTMLElement) {
+        if (parentElement !== this.element.parentElement) {
+            throw new Error('Paraent missmatch');
+        }
+        parentElement.removeChild(this.element);
     }
 }

@@ -7,5 +7,11 @@ export class BaseComponent {
     attaachTo(mainElement, position = 'afterbegin') {
         mainElement.insertAdjacentElement(position, this.element);
     }
+    removeFrom(parentElement) {
+        if (parentElement !== this.element.parentElement) {
+            throw new Error('Paraent missmatch');
+        }
+        parentElement.removeChild(this.element);
+    }
 }
 //# sourceMappingURL=component.js.map
