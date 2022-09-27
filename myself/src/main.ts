@@ -4,6 +4,7 @@ import {VideoComponent} from './components/item/video.js'
 import {NoteComponent} from './components/item/note.js'
 import {TaskComponent} from './components/item/task.js'
 import {Component} from './components/component.js'
+import {PopupComponent} from './components/popup/popup.js';
 
 class App {
     private readonly page:PageComponent & Composable;
@@ -19,6 +20,12 @@ class App {
         this.page.addChild(video);
         this.page.addChild(note);
         this.page.addChild(task);
+
+        const imgBtn = document.querySelector('#imgBtn')! as HTMLButtonElement;
+        imgBtn.addEventListener('click', () => {
+            const popup = new PopupComponent();
+            popup.attaachTo(document.body);
+        });
     }
 }
 new App(document.querySelector('.jobs')! as HTMLElement);

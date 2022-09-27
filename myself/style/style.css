@@ -3,8 +3,11 @@
     --color-black:#000000FF;
     --color-white:#FFFFFFFF;
     --color-darkGrey: #68686850;
+    --color-lightGrey: #575757;
     --color-kaki: #2d2d2d;
     --accent-color: #f64435;
+    --shadow-color: #202020;
+    --component-bg-gradient: radial-gradient(circle, #646464e6 0%, #363636e6 100%);
 }
 
 *{
@@ -52,7 +55,7 @@ button {
     justify-content: center;
 }
 .nav__list > li button {
-    color: white;
+    color: var(--color-white);
     font-size: 1rem;
     height: 2.5rem;
     width: 6rem;
@@ -61,62 +64,6 @@ button {
     cursor: pointer;
     -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, -1px -4px 13px 0px rgba(255,255,255,0);
     box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, -1px -4px 13px 0px rgba(255,255,255,0);
-}
-.popup__container {
-    position: absolute;
-    top:50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    background: #000000;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    height: 220px;
-    width: 650px;
-    border-radius: 5px;
-    z-index: 9999;
-}
-.popup__nav {
-    text-align: right;
-    margin-right: 0.5rem;
-    margin-top: 0.7rem;
-}
-.popup__container i {
-    color: red;
-    font-size: 1rem;
-    cursor: pointer;
-}
-.popup__body {
-    color: yellow;
-    padding:  0 0.7rem;
-}
-.popup__input {
-    margin: 0.5rem 0;
-}
-.popup__input input {
-    outline: 0;
-    border: none;
-    background-color: rgb(96, 92, 92);
-    color: white;
-    width: 100%;
-    height: 2.2rem;
-}
-.popup__btn {
-    text-align: right;
-    margin-top: 0.7rem;
-    margin-right: 0.5rem;
-}
-.popup__btn > button {
-    background-color: var(--color-red);
-    color: white;
-    border-radius: 5px;
-    padding: 0.5rem;
-}
-.highlight {
-    opacity: 0.5;
-}
-.popup-hide {
-    display: none;
 }
 .jobs {
     height: 100%;
@@ -149,50 +96,6 @@ button {
     position: relative;
     cursor: grab;
 }
-.item__img {
-    width: 100%;
-    flex: 1 1 60%;
-}
-.item__video {
-    width: 100%;
-    height: 100%;
-    flex: 1 1 50%;
-}
-.item__note {
-    font-size: 1.5rem;
-    color: yellow;
-    display: flex;
-    flex-direction: column;
-}
-.note__contents {
-    padding: 0.5rem;
-}
-.task__contents {
-    list-style: none;
-}
-.task__contents li:before {
-    content: '■';
-    display: inline-block;
-    margin-right: 0.2em;
-}
-.item__body {
-    flex: 1 1 50%;
-    width: 100%;
-    position: relative;
-}
-.item__title {
-    font-size: 1.5rem;
-    color: lightyellow;
-    padding: 0.5rem;
-}
-.item__btn {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    margin-right: 0.5rem;
-    cursor: pointer;
-}
-
 .footer {
     background: var(--color-black);
     border-top: 1px solid var(--color-black);
@@ -204,4 +107,46 @@ button {
 }
 .dragging {
     opacity: .5;
+}
+.popup {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background:var(--component-bg-gradient) ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.popup__container {
+    background: var(--color-kaki);
+    background: var(--component-bg-gradient);
+    width: 45rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 2px 2px 20px var(--shadow-color);
+}
+.close {
+    align-self: flex-end;
+    font-size: 32px;
+    color: var(--color-red);
+    margin-right: 0.5rem;
+    transition: color 250ms ease;
+}
+.close:hover,.close:focus {
+    transform: scale(1.5);
+    color: var(--color-black);
+    text-decoration: none;
+    cursor: pointer;
+}
+.submit {
+    align-self: flex-end;
+    color: var(--color-white);
+    background-color: var(--color-red) ;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 3.5rem;
+    padding: 0.3rem;
+    margin: 0.5rem;
 }

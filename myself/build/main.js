@@ -3,6 +3,7 @@ import { ImageComponent } from './components/item/image.js';
 import { VideoComponent } from './components/item/video.js';
 import { NoteComponent } from './components/item/note.js';
 import { TaskComponent } from './components/item/task.js';
+import { PopupComponent } from './components/popup/popup.js';
 class App {
     constructor(appRoot) {
         this.page = new PageComponent();
@@ -15,6 +16,11 @@ class App {
         this.page.addChild(video);
         this.page.addChild(note);
         this.page.addChild(task);
+        const imgBtn = document.querySelector('#imgBtn');
+        imgBtn.addEventListener('click', () => {
+            const popup = new PopupComponent();
+            popup.attaachTo(document.body);
+        });
     }
 }
 new App(document.querySelector('.jobs'));
