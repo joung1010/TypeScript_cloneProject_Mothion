@@ -18,11 +18,10 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
     private closeListener?: OnCloseListener;
     constructor() {
         super(`<li class="page_iem">
-               <section class="page_item__body">
+               <section class="page-item__body"></section>
                    <div class="page_item__controls">
                        <button class="close">&times</button>
                    </div>
-               </section>
             </li>`);
         const closeBtn = this.element.querySelector('.close')! as HTMLButtonElement;
         closeBtn.onclick = () => {
