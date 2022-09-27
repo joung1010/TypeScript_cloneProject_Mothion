@@ -25,6 +25,9 @@ class App {
         imgBtn.addEventListener('click', () => {
             const popup = new PopupComponent();
             popup.attaachTo(document.body);
+            popup.setCloseListener(() => {
+                popup.removeFrom(document.body);
+            });
         });
     }
 }

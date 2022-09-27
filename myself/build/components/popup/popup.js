@@ -8,6 +8,24 @@ export class PopupComponent extends BaseComponent {
                     <button class="submit">Add</button>
                 </div>
             </div>`);
+        const closeBtn = this.element.querySelector('.close');
+        closeBtn.addEventListener('click', () => {
+            this.closeListener && this.closeListener();
+        });
+        const submitBtn = this.element.querySelector('.submit');
+        submitBtn.addEventListener('click', () => {
+            this.submitListener && this.submitListener();
+        });
+    }
+    setCloseListener(listener) {
+        this.closeListener = listener;
+    }
+    setSubmitListener(listener) {
+        this.submitListener = listener;
+    }
+    addChild(child) {
+        const body = this.element.querySelector('.popup__body');
+        child.attaachTo(body);
     }
 }
 //# sourceMappingURL=popup.js.map
