@@ -11,9 +11,9 @@ export class PageItemComponent extends BaseComponent<HTMLLIElement>{
     constructor() {
         super(`<li class="page_iem">
                <section class="page_item__body">
-                   <button class="page_item__controls">
-                       <span>&times;</span>
-                   </button>
+                   <div class="page_item__controls">
+                       <button class="close">&times;</button>
+                   </div>
                </section>
             </li>`);
         const close = this.element.querySelector('.page_item__controls')! as HTMLButtonElement;
@@ -35,7 +35,7 @@ export class PageItemComponent extends BaseComponent<HTMLLIElement>{
 
 export class PageComponent extends BaseComponent<HTMLUListElement>{
     constructor() {
-        super(`<ul></ul>`);
+        super(`<ul class="page"></ul>`);
     }
 
     addChild(component:Component) {
