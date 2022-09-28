@@ -1,4 +1,5 @@
 :root {
+    --color-yellow: #ffe498;
     --color-red: #F02723;
     --color-black:#000000FF;
     --color-white:#FFFFFFFF;
@@ -149,4 +150,23 @@ button {
     width: 3.5rem;
     padding: 0.3rem;
     margin: 0.5rem;
+}
+.form__input {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0.5rem;
+}
+.form__input label {
+    color: var(--color-yellow);
+}
+.form__input input, textarea{
+    padding: 0.4rem;
+    background: var(--color-lightGrey);
+    box-shadow: 2px 2px 20px var(--shadow-color);
+    color: var(--color-white);
+    font-size: 18px;
+    font-weight: bold;
+}
+.pop__body {
+    border: 3px solid var(--color-darkGrey);
 }
