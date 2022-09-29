@@ -7,70 +7,40 @@ import { PopupComponent } from './components/popup/popup.js';
 import { MediaInputComponent } from './components/popup/item/media-input.js';
 import { TextInputComponent } from './components/popup/item/text-input.js';
 class App {
-    constructor(appRoot) {
+    constructor(appRoot, popupParent) {
+        this.popupParent = popupParent;
         this.page = new PageComponent();
         this.page.attaachTo(appRoot);
-        const imgBtn = document.querySelector('#imgBtn');
-        imgBtn.addEventListener('click', () => {
-            const popup = new PopupComponent();
-            const media = new MediaInputComponent();
-            popup.attaachTo(document.body);
-            popup.addChild(media);
-            popup.setCloseListener(() => {
-                popup.removeFrom(document.body);
-            });
-            popup.setSubmitListener(() => {
-                const img = new ImageComponent(media.title, media.url);
-                this.page.addChild(img);
-                popup.removeFrom(document.body);
-            });
+        this.addContent('imgBtn', MediaInputComponent, (input) => {
+            return new ImageComponent(input.title, input.url);
         });
-        const videoBtn = document.querySelector('#videoBtn');
-        videoBtn.addEventListener('click', () => {
-            const popup = new PopupComponent();
-            const media = new MediaInputComponent();
-            popup.attaachTo(document.body);
-            popup.addChild(media);
-            popup.setCloseListener(() => {
-                popup.removeFrom(document.body);
-            });
-            popup.setSubmitListener(() => {
-                const video = new VideoComponent(media.title, media.url);
-                this.page.addChild(video);
-                popup.removeFrom(document.body);
-            });
+        this.addContent('videoBtn', MediaInputComponent, (input) => {
+            return new VideoComponent(input.title, input.url);
         });
-        const noteBtn = document.querySelector('#noteBtn');
-        noteBtn.addEventListener('click', () => {
-            const popup = new PopupComponent();
-            const textContent = new TextInputComponent();
-            popup.attaachTo(document.body);
-            popup.addChild(textContent);
-            popup.setCloseListener(() => {
-                popup.removeFrom(document.body);
-            });
-            popup.setSubmitListener(() => {
-                const note = new NoteComponent(textContent.title, textContent.body);
-                this.page.addChild(note);
-                popup.removeFrom(document.body);
-            });
+        this.addContent('noteBtn', TextInputComponent, (input) => {
+            return new NoteComponent(input.title, input.body);
         });
-        const taskBtn = document.querySelector('#taskBtn');
-        taskBtn.addEventListener('click', () => {
+        this.addContent('taskBtn', TextInputComponent, (input) => {
+            return new TaskComponent(input.title, input.body);
+        });
+    }
+    addContent(elementId, input, makeContent) {
+        const elementBtn = document.querySelector(`#${elementId}`);
+        elementBtn.addEventListener('click', () => {
             const popup = new PopupComponent();
-            const textContent = new TextInputComponent();
-            popup.attaachTo(document.body);
-            popup.addChild(textContent);
+            const inputComponent = new input();
+            popup.attaachTo(this.popupParent);
+            popup.addChild(inputComponent);
             popup.setCloseListener(() => {
-                popup.removeFrom(document.body);
+                popup.removeFrom(this.popupParent);
             });
             popup.setSubmitListener(() => {
-                const task = new TaskComponent(textContent.title, textContent.body);
-                this.page.addChild(task);
+                const content = makeContent(inputComponent);
+                this.page.addChild(content);
                 popup.removeFrom(document.body);
             });
         });
     }
 }
-new App(document.querySelector('.jobs'));
+new App(document.querySelector('.jobs'), document.body);
 //# sourceMappingURL=main.js.map

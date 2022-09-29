@@ -1,6 +1,11 @@
 import {BaseComponent} from '../../component.js'
 
-export class MediaInputComponent extends BaseComponent<HTMLElement>{
+export interface MediaData {
+    title:string;
+    url:string
+}
+
+export class MediaInputComponent extends BaseComponent<HTMLElement> implements MediaData{
     constructor() {
         super(`<div>
         <div class="form__input">

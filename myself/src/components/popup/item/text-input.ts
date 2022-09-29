@@ -1,6 +1,11 @@
 import {BaseComponent} from '../../component.js'
 
-export class TextInputComponent extends BaseComponent<HTMLElement>{
+export  interface TextData  {
+    title: string;
+    body: string;
+}
+
+export class TextInputComponent extends BaseComponent<HTMLElement> implements TextData{
     constructor() {
         super(`<div>
         <div class="form__input">

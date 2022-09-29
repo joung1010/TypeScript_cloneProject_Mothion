@@ -1,92 +1,60 @@
-import {PageComponent,Composable} from './components/page/page.js'
+import {PageComponent, Composable} from './components/page/page.js'
 import {ImageComponent} from './components/item/image.js'
 import {VideoComponent} from './components/item/video.js'
 import {NoteComponent} from './components/item/note.js'
 import {TaskComponent} from './components/item/task.js'
 import {Component} from './components/component.js'
 import {PopupComponent} from './components/popup/popup.js';
-import {MediaInputComponent} from './components/popup/item/media-input.js';
-import {TextInputComponent} from './components/popup/item/text-input.js';
+import {MediaInputComponent, MediaData} from './components/popup/item/media-input.js';
+import {TextInputComponent, TextData} from './components/popup/item/text-input.js';
+
+
+type InputConstructor<T extends (TextData | MediaData) & Component> = {
+    new(): T;
+}
+
 
 class App {
-    private readonly page:PageComponent & Composable;
-    constructor(appRoot:HTMLElement) {
+    private readonly page: PageComponent & Composable;
+
+    constructor(appRoot: HTMLElement,private popupParent:HTMLElement) {
         this.page = new PageComponent();
         this.page.attaachTo(appRoot);
-
         //https://picsum.photos/600/200
         // https://www.youtube.com/watch?v=qtlWnuv3TF4&ab_channel=%ED%83%AC%ED%83%AC%EB%B2%84%EB%A6%B0
 
-        // ('task','taskBody');
+        this.addContent<MediaInputComponent>('imgBtn',MediaInputComponent,(input)=>{
+            return  new ImageComponent(input.title, input.url);
+        })
+        this.addContent<MediaInputComponent>('videoBtn',MediaInputComponent,(input)=>{
+            return  new VideoComponent(input.title,input.url);
+        })
+        this.addContent<TextInputComponent>('noteBtn',TextInputComponent,(input)=>{
+            return  new NoteComponent(input.title,input.body);
+        })
+        this.addContent<TextInputComponent>('taskBtn',TextInputComponent,(input)=>{
+            return  new TaskComponent(input.title,input.body);
+        })
 
-        // this.page.addChild(img);
-        // this.page.addChild(video);
-        // this.page.addChild(task);
+    }
 
-        const imgBtn = document.querySelector('#imgBtn')! as HTMLButtonElement;
-        imgBtn.addEventListener('click', () => {
+    private addContent<T extends (TextData | MediaData) & Component>(elementId: string, input: InputConstructor<T>, makeContent: (input: T) => Component) {
+        const elementBtn = document.querySelector(`#${elementId}`)! as HTMLButtonElement;
+        elementBtn.addEventListener('click', () => {
             const popup = new PopupComponent();
-            const media = new MediaInputComponent();
-            popup.attaachTo(document.body);
-            popup.addChild(media);
+            const inputComponent = new input();
+            popup.attaachTo(this.popupParent);
+            popup.addChild(inputComponent);
             popup.setCloseListener(() => {
-                popup.removeFrom(document.body);
+                popup.removeFrom(this.popupParent);
             });
             popup.setSubmitListener(() => {
-                const img = new ImageComponent(media.title,media.url);
-                this.page.addChild(img);
+                const content =  makeContent(inputComponent);
+                this.page.addChild(content);
                 popup.removeFrom(document.body);
             });
-        });
-
-        const videoBtn = document.querySelector('#videoBtn')! as HTMLButtonElement;
-        videoBtn.addEventListener('click', () => {
-            const popup = new PopupComponent();
-            const media = new MediaInputComponent();
-            popup.attaachTo(document.body);
-            popup.addChild(media);
-            popup.setCloseListener(() => {
-                popup.removeFrom(document.body);
-            });
-            popup.setSubmitListener(() => {
-                const video = new VideoComponent(media.title,media.url);
-                this.page.addChild(video);
-                popup.removeFrom(document.body);
-            });
-        });
-
-        const noteBtn = document.querySelector('#noteBtn')! as HTMLButtonElement;
-        noteBtn.addEventListener('click', () => {
-            const popup = new PopupComponent();
-            const textContent = new TextInputComponent();
-            popup.attaachTo(document.body);
-            popup.addChild(textContent);
-            popup.setCloseListener(() => {
-                popup.removeFrom(document.body);
-            });
-            popup.setSubmitListener(() => {
-                const note = new NoteComponent(textContent.title,textContent.body);
-                this.page.addChild(note);
-                popup.removeFrom(document.body);
-            });
-        });
-
-
-        const taskBtn = document.querySelector('#taskBtn')! as HTMLButtonElement;
-        taskBtn.addEventListener('click', () => {
-            const popup = new PopupComponent();
-            const textContent = new TextInputComponent();
-            popup.attaachTo(document.body);
-            popup.addChild(textContent);
-            popup.setCloseListener(() => {
-                popup.removeFrom(document.body);
-            });
-            popup.setSubmitListener(() => {
-                const task = new TaskComponent(textContent.title,textContent.body);
-                this.page.addChild(task);
-                popup.removeFrom(document.body);
-            });
-        });
+        })
     }
 }
-new App(document.querySelector('.jobs')! as HTMLElement);
+
+new App(document.querySelector('.jobs')! as HTMLElement,document.body);
