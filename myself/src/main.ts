@@ -6,6 +6,7 @@ import {TaskComponent} from './components/item/task.js'
 import {Component} from './components/component.js'
 import {PopupComponent} from './components/popup/popup.js';
 import {MediaInputComponent} from './components/popup/item/media-input.js';
+import {TextInputComponent} from './components/popup/item/text-input.js';
 
 class App {
     private readonly page:PageComponent & Composable;
@@ -15,12 +16,11 @@ class App {
 
         //https://picsum.photos/600/200
         // https://www.youtube.com/watch?v=qtlWnuv3TF4&ab_channel=%ED%83%AC%ED%83%AC%EB%B2%84%EB%A6%B0
-        // const note = new NoteComponent('note','noteBody');
-        // const task = new TaskComponent('task','taskBody');
+
+        // ('task','taskBody');
 
         // this.page.addChild(img);
         // this.page.addChild(video);
-        // this.page.addChild(note);
         // this.page.addChild(task);
 
         const imgBtn = document.querySelector('#imgBtn')! as HTMLButtonElement;
@@ -51,6 +51,39 @@ class App {
             popup.setSubmitListener(() => {
                 const video = new VideoComponent(media.title,media.url);
                 this.page.addChild(video);
+                popup.removeFrom(document.body);
+            });
+        });
+
+        const noteBtn = document.querySelector('#noteBtn')! as HTMLButtonElement;
+        noteBtn.addEventListener('click', () => {
+            const popup = new PopupComponent();
+            const textContent = new TextInputComponent();
+            popup.attaachTo(document.body);
+            popup.addChild(textContent);
+            popup.setCloseListener(() => {
+                popup.removeFrom(document.body);
+            });
+            popup.setSubmitListener(() => {
+                const note = new NoteComponent(textContent.title,textContent.body);
+                this.page.addChild(note);
+                popup.removeFrom(document.body);
+            });
+        });
+
+
+        const taskBtn = document.querySelector('#taskBtn')! as HTMLButtonElement;
+        taskBtn.addEventListener('click', () => {
+            const popup = new PopupComponent();
+            const textContent = new TextInputComponent();
+            popup.attaachTo(document.body);
+            popup.addChild(textContent);
+            popup.setCloseListener(() => {
+                popup.removeFrom(document.body);
+            });
+            popup.setSubmitListener(() => {
+                const task = new TaskComponent(textContent.title,textContent.body);
+                this.page.addChild(task);
                 popup.removeFrom(document.body);
             });
         });

@@ -197,8 +197,19 @@ button {
 }
 .page__title {
     flex: 1 1 40%;
+    margin-left: 0.5rem;
     color: var(--color-yellow);
 }
 .page_item__controls {
     align-self: center;
+}
+.note, .task {
+    width: 100%;
+}
+.note__body,.task__body {
+    color: var(--color-white);
+    margin-left: 0.5rem;
+}
+.task__body-container {
+    margin-bottom: 0.5rem;
 }
