@@ -232,3 +232,9 @@ textarea {
     padding: 1em;
     color: var(--smokywhite);
 }
+
+/* Drang and Drop */
+
+.mute-children *{
+    pointer-events: none;
+}
