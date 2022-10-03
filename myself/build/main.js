@@ -1,4 +1,4 @@
-import { PageComponent } from './components/page/page.js';
+import { PageComponent, PageItemComponent } from './components/page/page.js';
 import { ImageComponent } from './components/item/image.js';
 import { VideoComponent } from './components/item/video.js';
 import { NoteComponent } from './components/item/note.js';
@@ -9,7 +9,7 @@ import { TextInputComponent } from './components/popup/item/text-input.js';
 class App {
     constructor(appRoot, popupParent) {
         this.popupParent = popupParent;
-        this.page = new PageComponent();
+        this.page = new PageComponent(PageItemComponent);
         this.page.attaachTo(appRoot);
         this.addContent('imgBtn', MediaInputComponent, (input) => {
             return new ImageComponent(input.title, input.url);

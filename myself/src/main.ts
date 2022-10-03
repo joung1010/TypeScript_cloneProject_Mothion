@@ -1,4 +1,4 @@
-import {PageComponent, Composable} from './components/page/page.js'
+import {PageComponent, Composable,PageItemComponent} from './components/page/page.js'
 import {ImageComponent} from './components/item/image.js'
 import {VideoComponent} from './components/item/video.js'
 import {NoteComponent} from './components/item/note.js'
@@ -18,7 +18,7 @@ class App {
     private readonly page: PageComponent & Composable;
 
     constructor(appRoot: HTMLElement,private popupParent:HTMLElement) {
-        this.page = new PageComponent();
+        this.page = new PageComponent(PageItemComponent);
         this.page.attaachTo(appRoot);
         //https://picsum.photos/600/200
         // https://www.youtube.com/watch?v=qtlWnuv3TF4&ab_channel=%ED%83%AC%ED%83%AC%EB%B2%84%EB%A6%B0
