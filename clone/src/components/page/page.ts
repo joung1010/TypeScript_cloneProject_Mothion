@@ -17,7 +17,7 @@ type SectionContainerConsturctor ={
 export class PageItemComponent extends BaseComponent<HTMLElement> implements SectionContainer{
     private closeListener?: OnCloseListener;
     constructor() {
-        super(`<li class="page_iem">
+        super(`<li class="page_iem" draggable="true">
                <section class="page-item__body"></section>
                    <div class="page_item__controls">
                        <button class="close">&times</button>
@@ -27,6 +27,20 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
         closeBtn.onclick = () => {
             this.closeListener && this.closeListener();
         };
+        this.element.addEventListener('dragstart', (event) => {
+            this.onDragStart(event);
+        });
+        this.element.addEventListener('dragend', (event) => {
+            this.onDragEnd(event);
+        });
+    }
+
+    onDragStart(event:DragEvent) {
+        console.log('start', event);
+    }
+
+    onDragEnd(event:DragEvent) {
+        console.log('end', event);
     }
 
     addChild(child: Component) {
@@ -42,8 +56,23 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
 export class PageComponent extends BaseComponent<HTMLUListElement> implements Composasble{
     constructor(private pageItemConsturctor:SectionContainerConsturctor) {
          super(`<ul class="page"></ul>`);
+        this.element.addEventListener('dragover', (event) => {
+            this.onDragOver(event);
+        });
+        this.element.addEventListener('drop', (event) => {
+            this.onDragDrop(event);
+        });
     }
 
+    onDragOver(event:DragEvent) {
+        event.preventDefault();
+        console.log('drag Over');
+    }
+
+    onDragDrop(event:DragEvent) {
+        event.preventDefault();
+        console.log('drop')
+    }
     addChild(section: Component) {
         const item = new this.pageItemConsturctor();
         item.addChild(section);
