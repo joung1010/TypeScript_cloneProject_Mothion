@@ -4,7 +4,7 @@ export class BaseComponent {
         template.innerHTML = htmlString;
         this.element = template.content.firstElementChild;
     }
-    attaachTo(parent, position = 'afterbegin') {
+    attachTo(parent, position = 'afterbegin') {
         parent.insertAdjacentElement(position, this.element);
     }
     removeFrom(parent) {

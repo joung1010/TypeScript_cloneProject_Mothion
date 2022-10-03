@@ -35,16 +35,16 @@ export class InputDialog extends BaseComponent<HTMLElement> implements Composasb
         };
     }
 
-    setOnCloseListener(listener: OnCloseListener) {
+    setOnCloseListenr(listener: OnCloseListener) {
         this.closeListener = listener;
     }
 
-    setOnSubmitListener(listener: OnSubmitListener) {
+    setOnSubmitListenr(listener: OnSubmitListener) {
         this.submitListener = listener;
     }
 
     addChild(child: Component) {
         const body = this.element.querySelector('.dialog__body')! as HTMLElement;
-        child.attaachTo(body);
+        child.attachTo(body);
     }
 }

@@ -13,8 +13,8 @@ export class PageItemComponent extends BaseComponent {
         };
     }
     addChild(child) {
-        const container = this.element.querySelector('.page_item__body');
-        child.attaachTo(container);
+        const container = this.element.querySelector('.page-item__body');
+        child.attachTo(container);
     }
     setOnCloseListener(listener) {
         this.closeListener = listener;
@@ -28,7 +28,7 @@ export class PageComponent extends BaseComponent {
     addChild(section) {
         const item = new this.pageItemConsturctor();
         item.addChild(section);
-        item.attaachTo(this.element, 'beforeend');
+        item.attachTo(this.element, 'beforeend');
         item.setOnCloseListener(() => {
             item.removeFrom(this.element);
         });

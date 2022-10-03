@@ -17,14 +17,14 @@ export class InputDialog extends BaseComponent {
             this.submitListener && this.submitListener();
         };
     }
-    setOnCloseListener(listener) {
+    setOnCloseListenr(listener) {
         this.closeListener = listener;
     }
-    setOnSubmitListener(listener) {
+    setOnSubmitListenr(listener) {
         this.submitListener = listener;
     }
     addChild(child) {
         const body = this.element.querySelector('.dialog__body');
-        child.attaachTo(body);
+        child.attachTo(body);
     }
 }

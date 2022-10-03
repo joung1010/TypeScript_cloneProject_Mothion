@@ -30,8 +30,8 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
     }
 
     addChild(child: Component) {
-        const container = this.element.querySelector('.page_item__body')! as HTMLElement;
-        child.attaachTo(container);
+        const container = this.element.querySelector('.page-item__body')! as HTMLElement;
+        child.attachTo(container);
     }
 
     setOnCloseListener(listener: OnCloseListener) {
@@ -47,7 +47,7 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
     addChild(section: Component) {
         const item = new this.pageItemConsturctor();
         item.addChild(section);
-        item.attaachTo(this.element,'beforeend');
+        item.attachTo(this.element,'beforeend');
         item.setOnCloseListener(()=> {
             item.removeFrom(this.element);
         })

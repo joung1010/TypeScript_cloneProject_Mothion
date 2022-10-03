@@ -10,23 +10,31 @@ class App {
     constructor(appRoot, dialogRoot) {
         this.dialogRoot = dialogRoot;
         this.page = new PageComponent(PageItemComponent);
-        this.page.attaachTo(appRoot);
+        this.page.attachTo(appRoot);
         this.bindElementToDialog('#new-image', MediaSectionInput, (input) => new ImageComponent(input.title, input.url));
         this.bindElementToDialog('#new-video', MediaSectionInput, (input) => new VideoComponent(input.title, input.url));
         this.bindElementToDialog('#new-note', TextSectionInput, (input) => new NoteComponent(input.title, input.body));
         this.bindElementToDialog('#new-todo', TextSectionInput, (input) => new TodoComponent(input.title, input.body));
+        this.page.addChild(new ImageComponent('Image Title', 'https://picsum.photos/800/400'));
+        this.page.addChild(new VideoComponent('Video Title', 'https://youtu.be/qtlWnuv3TF4'));
+        this.page.addChild(new NoteComponent('Note Title', "Don't forget to code your dream"));
+        this.page.addChild(new TodoComponent('Todo Title', 'TypeScript Course!'));
+        this.page.addChild(new ImageComponent('Image Title', 'https://picsum.photos/800/400'));
+        this.page.addChild(new VideoComponent('Video Title', 'https://www.youtube.com/watch?v=5qrcQmE2JmM'));
+        this.page.addChild(new NoteComponent('Note Title', "Don't forget to code your dream"));
+        this.page.addChild(new TodoComponent('Todo Title', 'TypeScript Course!'));
     }
-    bindElementToDialog(selector, inputComponent, makeSection) {
-        const elementBtn = document.querySelector(selector);
-        elementBtn.addEventListener('click', () => {
+    bindElementToDialog(selector, InputComponent, makeSection) {
+        const element = document.querySelector(selector);
+        element.addEventListener('click', () => {
             const dialog = new InputDialog();
-            const input = new inputComponent();
+            const input = new InputComponent();
             dialog.addChild(input);
-            dialog.attaachTo(this.dialogRoot);
-            dialog.setOnCloseListener(() => {
+            dialog.attachTo(this.dialogRoot);
+            dialog.setOnCloseListenr(() => {
                 dialog.removeFrom(this.dialogRoot);
             });
-            dialog.setOnSubmitListener(() => {
+            dialog.setOnSubmitListenr(() => {
                 const component = makeSection(input);
                 this.page.addChild(component);
                 dialog.removeFrom(this.dialogRoot);
