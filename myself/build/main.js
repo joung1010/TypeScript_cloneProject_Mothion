@@ -23,6 +23,14 @@ class App {
         this.addContent('taskBtn', TextInputComponent, (input) => {
             return new TaskComponent(input.title, input.body);
         });
+        this.page.addChild(new ImageComponent('Image Title', 'https://picsum.photos/800/400'));
+        this.page.addChild(new VideoComponent('Video Title', 'https://youtu.be/qtlWnuv3TF4'));
+        this.page.addChild(new NoteComponent('Note Title', "Don't forget to code your dream"));
+        this.page.addChild(new TaskComponent('Todo Title', 'TypeScript Course!'));
+        this.page.addChild(new ImageComponent('Image Title', 'https://picsum.photos/800/400'));
+        this.page.addChild(new VideoComponent('Video Title', 'https://www.youtube.com/watch?v=5qrcQmE2JmM'));
+        this.page.addChild(new NoteComponent('Note Title', "Don't forget to code your dream"));
+        this.page.addChild(new TaskComponent('Todo Title', 'TypeScript Course!'));
     }
     addContent(elementId, input, makeContent) {
         const elementBtn = document.querySelector(`#${elementId}`);
