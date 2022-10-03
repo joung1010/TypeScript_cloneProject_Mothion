@@ -17,12 +17,27 @@ export class PageItemComponent extends BaseComponent {
         this.element.addEventListener('dragend', (event) => {
             this.onDragEnd(event);
         });
+        this.element.addEventListener('dragenter', (event) => {
+            this.onDragEnter(event);
+        });
+        this.element.addEventListener('dragleave', (event) => {
+            this.onDragLeave(event);
+        });
     }
-    onDragStart(event) {
-        console.log('start', event);
+    onDragStart(_) {
+        this.notifyDragObservers('start');
     }
-    onDragEnd(event) {
-        console.log('end', event);
+    onDragEnd(_) {
+        this.notifyDragObservers('stop');
+    }
+    onDragEnter(_) {
+        this.notifyDragObservers('enter');
+    }
+    onDragLeave(_) {
+        this.notifyDragObservers('leave');
+    }
+    notifyDragObservers(dragState) {
+        this.dragStateListener && this.dragStateListener(this, dragState);
     }
     addChild(child) {
         const container = this.element.querySelector('.page-item__body');
@@ -30,6 +45,9 @@ export class PageItemComponent extends BaseComponent {
     }
     setOnCloseListener(listener) {
         this.closeListener = listener;
+    }
+    setOnDragStateListener(listener) {
+        this.dragStateListener = listener;
     }
 }
 export class PageComponent extends BaseComponent {
@@ -40,14 +58,14 @@ export class PageComponent extends BaseComponent {
             this.onDragOver(event);
         });
         this.element.addEventListener('drop', (event) => {
-            this.onDragDrop(event);
+            this.onDrop(event);
         });
     }
     onDragOver(event) {
         event.preventDefault();
         console.log('drag Over');
     }
-    onDragDrop(event) {
+    onDrop(event) {
         event.preventDefault();
         console.log('drop');
     }
@@ -57,6 +75,9 @@ export class PageComponent extends BaseComponent {
         item.attachTo(this.element, 'beforeend');
         item.setOnCloseListener(() => {
             item.removeFrom(this.element);
+        });
+        item.setOnDragStateListener((target, state) => {
+            console.log(target, state);
         });
     }
 }

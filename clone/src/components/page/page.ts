@@ -8,14 +8,19 @@ type OnCloseListener = ()=> void;
 
 interface SectionContainer extends Component, Composasble {
     setOnCloseListener(listener: OnCloseListener):void;
+    setOnDragStateListener(listener:OnDragStateListener<SectionContainer>):void;
 }
 
 type SectionContainerConsturctor ={
     new () : SectionContainer;
 }
+type OnDragStateListener<T extends Component>  = (target:T,state:DragState) => void;
+type DragState = 'start' | 'stop' | 'enter' | 'leave';
 
 export class PageItemComponent extends BaseComponent<HTMLElement> implements SectionContainer{
     private closeListener?: OnCloseListener;
+    private dragStateListener?: OnDragStateListener<PageItemComponent>;
+
     constructor() {
         super(`<li class="page_iem" draggable="true">
                <section class="page-item__body"></section>
@@ -33,14 +38,31 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
         this.element.addEventListener('dragend', (event) => {
             this.onDragEnd(event);
         });
+        this.element.addEventListener('dragenter', (event) => {
+            this.onDragEnter(event);
+        });
+        this.element.addEventListener('dragleave', (event) => {
+            this.onDragLeave(event);
+        });
     }
 
-    onDragStart(event:DragEvent) {
-        console.log('start', event);
+    onDragStart(_:DragEvent) {
+        this.notifyDragObservers('start');
     }
 
-    onDragEnd(event:DragEvent) {
-        console.log('end', event);
+    onDragEnd(_:DragEvent) {
+        this.notifyDragObservers('stop');
+    }
+    onDragEnter(_:DragEvent) {
+        this.notifyDragObservers('enter');
+    }
+
+    onDragLeave(_:DragEvent) {
+        this.notifyDragObservers('leave');
+    }
+
+    notifyDragObservers(dragState:DragState) {
+        this.dragStateListener && this.dragStateListener(this,dragState);
     }
 
     addChild(child: Component) {
@@ -51,6 +73,10 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
     setOnCloseListener(listener: OnCloseListener) {
         this.closeListener = listener;
     }
+
+    setOnDragStateListener(listener:OnDragStateListener<PageItemComponent>) {
+        this.dragStateListener = listener;
+    }
 }
 
 export class PageComponent extends BaseComponent<HTMLUListElement> implements Composasble{
@@ -60,7 +86,7 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
             this.onDragOver(event);
         });
         this.element.addEventListener('drop', (event) => {
-            this.onDragDrop(event);
+            this.onDrop(event);
         });
     }
 
@@ -69,10 +95,11 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
         console.log('drag Over');
     }
 
-    onDragDrop(event:DragEvent) {
+    onDrop(event:DragEvent) {
         event.preventDefault();
         console.log('drop')
     }
+
     addChild(section: Component) {
         const item = new this.pageItemConsturctor();
         item.addChild(section);
@@ -80,5 +107,8 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
         item.setOnCloseListener(()=> {
             item.removeFrom(this.element);
         })
+        item.setOnDragStateListener((target,state)=>{
+            console.log(target, state);
+        });
     }
 }
