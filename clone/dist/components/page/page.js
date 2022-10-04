@@ -25,16 +25,20 @@ export class PageItemComponent extends BaseComponent {
         });
     }
     onDragStart(_) {
+        this.element.classList.add('lifted');
         this.notifyDragObservers('start');
     }
     onDragEnd(_) {
         this.notifyDragObservers('stop');
+        this.element.classList.remove('lifted');
     }
     onDragEnter(_) {
+        this.element.classList.add('drop-area');
         this.notifyDragObservers('enter');
     }
     onDragLeave(_) {
         this.notifyDragObservers('leave');
+        this.element.classList.remove('drop-area');
     }
     notifyDragObservers(dragState) {
         this.dragStateListener && this.dragStateListener(this, dragState);
@@ -59,6 +63,9 @@ export class PageItemComponent extends BaseComponent {
     }
     getBoundingRect() {
         return this.element.getBoundingClientRect();
+    }
+    onDropped() {
+        this.element.classList.remove('drop-area');
     }
 }
 export class PageComponent extends BaseComponent {
@@ -89,6 +96,7 @@ export class PageComponent extends BaseComponent {
             this.dragTarget.removeFrom(this.element);
             this.dropTarget.attach(this.dragTarget, dropY < srcElement.y ? 'beforebegin' : 'afterend');
         }
+        this.dropTarget.onDropped();
     }
     addChild(section) {
         const item = new this.pageItemConsturctor();
