@@ -106,9 +106,6 @@ button {
     text-align: center;
     line-height: 5rem;
 }
-.dragging {
-    opacity: .5;
-}
 .popup {
     width: 100%;
     height: 100%;
@@ -215,4 +212,23 @@ button {
 }
 .task__body-container {
     margin-bottom: 0.5rem;
+}
+
+.dragging {
+    animation: drag-start 350ms;
+    opacity: 0.2;
+}
+
+.drag-over {
+    border: 2px solid var(--color-red);
+}
+
+
+@keyframes drag-start {
+     0%{
+         opacity: 1;
+     }
+    100%{
+        opacity: 0.2;
+    }
 }

@@ -13,5 +13,8 @@ export class BaseComponent {
         }
         parentElement.removeChild(this.element);
     }
+    attatch(component, position) {
+        component.attaachTo(this.element, position);
+    }
 }
 //# sourceMappingURL=component.js.map

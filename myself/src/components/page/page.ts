@@ -15,6 +15,8 @@ type SectionConstructor<T extends SectionContainer> = {
 interface SectionContainer extends Component,Composable {
     setOnCloseListener(listener : OnCloseListener) :void
     setOnDragListener(listener: OnDragListener<SectionContainer>):void;
+    getBoundingClientRect():DOMRect;
+    onDrop():void;
 }
 
 export class PageItemComponent extends BaseComponent<HTMLLIElement> implements SectionContainer{
@@ -54,20 +56,22 @@ export class PageItemComponent extends BaseComponent<HTMLLIElement> implements S
 
     onDragStart(event:DragEvent) {
         event.dataTransfer!.effectAllowed = 'move';
-        event.dataTransfer!.setData('text/html', this.element.innerHTML);
+        this.element.classList.add('dragging');
         this.onDragObserver(event,  'start');
     }
     onDragEnd(event:DragEvent) {
         this.onDragObserver(event,  'end');
+
     }
     onDragOver(event:DragEvent) {
         event.preventDefault();
         event.dataTransfer!.dropEffect = 'move';
+        this.element.classList.add('drag-over');
         this.onDragObserver(event,  'over');
     }
     onDragLeave(event:DragEvent) {
         event.stopPropagation();
-        this.onDragObserver(event,  'leave');
+        this.element.classList.remove('drag-over');
     }
 
     private onDragObserver(event:DragEvent,state:DragState) {
@@ -87,6 +91,15 @@ export class PageItemComponent extends BaseComponent<HTMLLIElement> implements S
         this.dragListener = listener;
     }
 
+    getBoundingClientRect() {
+        return this.element.getBoundingClientRect();
+    }
+
+    onDrop() {
+        this.element.classList.remove('dragging');
+        this.element.classList.remove('drag-over');
+    }
+
 }
 
 export class PageComponent extends BaseComponent<HTMLUListElement>{
@@ -94,17 +107,12 @@ export class PageComponent extends BaseComponent<HTMLUListElement>{
     private dropElement?: SectionContainer;
     constructor(private pageItemConstructor:SectionConstructor<SectionContainer> ) {
         super(`<ul class="page"></ul>`);
-        this.element.addEventListener('dragover',(event:DragEvent)=>{
-            this.onDragOver(event);
-        });
+
         this.element.addEventListener('drop',(event:DragEvent)=>{
             this.onDrop(event);
         });
     }
 
-    onDragOver(event:DragEvent) {
-        event.preventDefault();
-    }
 
     onDrop(event:DragEvent) {
         event.preventDefault();
@@ -112,8 +120,13 @@ export class PageComponent extends BaseComponent<HTMLUListElement>{
             return;
         }
         if (this.dragElement !== this.dropElement) {
-
+            const dragY = this.dragElement.getBoundingClientRect().y;
+            const dropY = this.dropElement.getBoundingClientRect().y;
+            this.dragElement.removeFrom(this.element);
+            this.dropElement.attatch(this.dragElement, dragY< dropY ? 'afterend':'beforebegin');
         }
+        this.dragElement.onDrop();
+        this.dropElement.onDrop();
     }
 
     addChild(component:Component) {

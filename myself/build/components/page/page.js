@@ -27,7 +27,7 @@ export class PageItemComponent extends BaseComponent {
     }
     onDragStart(event) {
         event.dataTransfer.effectAllowed = 'move';
-        event.dataTransfer.setData('text/html', this.element.innerHTML);
+        this.element.classList.add('dragging');
         this.onDragObserver(event, 'start');
     }
     onDragEnd(event) {
@@ -36,11 +36,12 @@ export class PageItemComponent extends BaseComponent {
     onDragOver(event) {
         event.preventDefault();
         event.dataTransfer.dropEffect = 'move';
+        this.element.classList.add('drag-over');
         this.onDragObserver(event, 'over');
     }
     onDragLeave(event) {
         event.stopPropagation();
-        this.onDragObserver(event, 'leave');
+        this.element.classList.remove('drag-over');
     }
     onDragObserver(event, state) {
         this.dragListener && this.dragListener(this, state, event);
@@ -55,20 +56,21 @@ export class PageItemComponent extends BaseComponent {
     setOnDragListener(listener) {
         this.dragListener = listener;
     }
+    getBoundingClientRect() {
+        return this.element.getBoundingClientRect();
+    }
+    onDrop() {
+        this.element.classList.remove('dragging');
+        this.element.classList.remove('drag-over');
+    }
 }
 export class PageComponent extends BaseComponent {
     constructor(pageItemConstructor) {
         super(`<ul class="page"></ul>`);
         this.pageItemConstructor = pageItemConstructor;
-        this.element.addEventListener('dragover', (event) => {
-            this.onDragOver(event);
-        });
         this.element.addEventListener('drop', (event) => {
             this.onDrop(event);
         });
-    }
-    onDragOver(event) {
-        event.preventDefault();
     }
     onDrop(event) {
         event.preventDefault();
@@ -76,7 +78,13 @@ export class PageComponent extends BaseComponent {
             return;
         }
         if (this.dragElement !== this.dropElement) {
+            const dragY = this.dragElement.getBoundingClientRect().y;
+            const dropY = this.dropElement.getBoundingClientRect().y;
+            this.dragElement.removeFrom(this.element);
+            this.dropElement.attatch(this.dragElement, dragY < dropY ? 'afterend' : 'beforebegin');
         }
+        this.dragElement.onDrop();
+        this.dropElement.onDrop();
     }
     addChild(component) {
         const item = new this.pageItemConstructor();
